@@ -42,6 +42,8 @@ var resolution = 512;
 
 	layers.foreground.applySpherize(100, SpherizeMode.NORMAL);
 
+	innerShadow(-36, 250, 40, colors.black, 50);
+
 	restoreSettings(originalSettings);
 })();
 
@@ -131,6 +133,79 @@ function selectCircle(top, left, right, bottom)
     return selection;
 }
 
+function innerShadow(angle, distance, choke, color, blur) { 
+	var idsetd = charIDToTypeID( "setd" );
+	var desc8 = new ActionDescriptor();
+	var idnull = charIDToTypeID( "null" );
+	var ref4 = new ActionReference();
+	var idPrpr = charIDToTypeID( "Prpr" );
+	var idLefx = charIDToTypeID( "Lefx" );
+	ref4.putProperty( idPrpr, idLefx );
+	var idLyr = charIDToTypeID( "Lyr " );
+	var idOrdn = charIDToTypeID( "Ordn" );
+	var idTrgt = charIDToTypeID( "Trgt" );
+	ref4.putEnumerated( idLyr, idOrdn, idTrgt );
+	desc8.putReference( idnull, ref4 );
+	var idT = charIDToTypeID( "T   " );
+	var desc9 = new ActionDescriptor();
+	var idgagl = charIDToTypeID( "gagl" );
+	var idAng = charIDToTypeID( "#Ang" );
+	desc9.putUnitDouble( idgagl, idAng, angle );
+	var idScl = charIDToTypeID( "Scl " );
+	var idPrc = charIDToTypeID( "#Prc" );
+	desc9.putUnitDouble( idScl, idPrc, 50 );
+	var idIrSh = charIDToTypeID( "IrSh" );
+	var desc10 = new ActionDescriptor();
+	var idenab = charIDToTypeID( "enab" );
+	desc10.putBoolean( idenab, true );
+	var idMd = charIDToTypeID( "Md  " );
+	var idBlnM = charIDToTypeID( "BlnM" );
+	var idDrkn = charIDToTypeID( "Drkn" );
+	desc10.putEnumerated( idMd, idBlnM, idDrkn );
+	var idClr = charIDToTypeID( "Clr " );
+	var desc11 = new ActionDescriptor();
+	var idRd = charIDToTypeID( "Rd  " );
+	desc11.putDouble( idRd, color.rgb.red );
+	var idGrn = charIDToTypeID( "Grn " );
+	desc11.putDouble( idGrn, color.rgb.green );
+	var idBl = charIDToTypeID( "Bl  " );
+	desc11.putDouble( idBl, color.rgb.blue);
+	var idRGBC = charIDToTypeID( "RGBC" );
+	desc10.putObject( idClr, idRGBC, desc11 );
+	var idOpct = charIDToTypeID( "Opct" );
+	var idPrc = charIDToTypeID( "#Prc" );
+	desc10.putUnitDouble( idOpct, idPrc, 44.000000 );
+	var iduglg = charIDToTypeID( "uglg" );
+	desc10.putBoolean( iduglg, true );
+	var idlagl = charIDToTypeID( "lagl" );
+	var idAng = charIDToTypeID( "#Ang" );
+	desc10.putUnitDouble( idlagl, idAng, 120.000000 );
+	var idDstn = charIDToTypeID( "Dstn" );
+	var idPxl = charIDToTypeID( "#Pxl" );
+	desc10.putUnitDouble( idDstn, idPxl, distance );
+	var idCkmt = charIDToTypeID( "Ckmt" );
+	var idPxl = charIDToTypeID( "#Pxl" );
+	desc10.putUnitDouble( idCkmt, idPxl, choke );
+	var idblur = charIDToTypeID( "blur" );
+	var idPxl = charIDToTypeID( "#Pxl" );
+	desc10.putUnitDouble( idblur, idPxl, blur );
+	var idNose = charIDToTypeID( "Nose" );
+	var idPrc = charIDToTypeID( "#Prc" );
+	desc10.putUnitDouble( idNose, idPrc, 0.000000 );
+	var idAntA = charIDToTypeID( "AntA" );
+	desc10.putBoolean( idAntA, false );
+	var idTrnS = charIDToTypeID( "TrnS" );
+	var desc12 = new ActionDescriptor();
+	var idNm = charIDToTypeID( "Nm  " );
+	desc12.putString( idNm, "Linear" );
+	var idShpC = charIDToTypeID( "ShpC" );
+	desc10.putObject( idTrnS, idShpC, desc12 );
+	var idIrSh = charIDToTypeID( "IrSh" );
+	desc9.putObject( idIrSh, idIrSh, desc10 );
+	var idLefx = charIDToTypeID( "Lefx" );
+	desc8.putObject( idT, idLefx, desc9 );
+	executeAction( idsetd, desc8, DialogModes.NO );
+}
 
 function saveSettings() {
 	savedSettings = {};
